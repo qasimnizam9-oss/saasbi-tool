@@ -1,0 +1,321 @@
+/* ==========================================================================
+   1. GLOBAL VARIABLES & DESIGN TOKENS
+   ========================================================================== */
+:root {
+    /* Default Light Theme */
+    --primary-blue: #2563eb;
+    --primary-hover: #1d4ed8;
+    --sidebar-dark: #0f172a;
+    --bg-light: #f1f5f9;
+    --bg-card: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --accent: #2563eb;
+    
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    --radius-lg: 16px;
+    --radius-md: 10px;
+}
+
+/* Dark Theme - High Contrast Professional */
+[data-theme='dark'] {
+    --bg-light: #0f172a;
+    --bg-card: #1e293b;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border: #334155;
+    --accent: #38bdf8;
+    --sidebar-dark: #020617;
+}
+
+/* Aesthetic Pro - Slate & Emerald Deep */
+[data-theme='aesthetic'] {
+    --bg-light: #020617;
+    --bg-card: #0f172a;
+    --text-main: #e2e8f0;
+    --text-muted: #94a3b8;
+    --border: #1e293b;
+    --accent: #10b981; /* Emerald green */
+    --sidebar-dark: #000000;
+}
+
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0;
+    font-family: 'Inter', -apple-system, sans-serif; 
+}
+
+body { 
+    background-color: var(--bg-light); 
+    color: var(--text-main); 
+    overflow: hidden; 
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Custom Professional Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-light); }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* ==========================================================================
+   2. APP ARCHITECTURE
+   ========================================================================== */
+.app-container { display: flex; height: 100vh; }
+
+.sidebar {
+    width: 280px;
+    background: var(--sidebar-dark);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 2.5rem 1.5rem;
+    z-index: 100;
+    transition: background 0.3s ease;
+}
+
+.logo { 
+    font-size: 1.4rem; 
+    font-weight: 800; 
+    margin-bottom: 3rem; 
+    letter-spacing: -0.025em;
+    color: white;
+}
+
+.logo strong { color: var(--accent); }
+
+.nav-links { list-style: none; flex-grow: 1; }
+.nav-links li {
+    padding: 14px 18px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: all 0.2s ease;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-weight: 600;
+}
+
+.nav-links li:hover { background: rgba(255,255,255,0.08); color: white; }
+.nav-links li.active { 
+    background: var(--accent); 
+    color: white; 
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3); 
+}
+
+/* Sidebar History Section */
+.history-section {
+    margin-top: auto;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.history-section h4 {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #64748b;
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+}
+
+.main-content { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
+
+.top-bar {
+    background: var(--bg-card);
+    padding: 1rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.view-wrapper { 
+    padding: 2.5rem; 
+    max-width: 1400px; 
+    margin: 0 auto; 
+    width: 100%; 
+}
+
+/* ==========================================================================
+   3. DASHBOARD & KPI CARDS
+   ========================================================================== */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.stat-card {
+    background: var(--bg-card);
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+}
+
+.stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.stat-card span { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
+.stat-card p { font-size: 2rem; font-weight: 800; margin-top: 0.5rem; color: var(--text-main); }
+
+/* ==========================================================================
+   4. IMPORT & UPLOAD VIEW
+   ========================================================================== */
+.upload-container {
+    max-width: 600px;
+    margin: 4rem auto;
+    text-align: center;
+    padding: 3rem;
+}
+
+.drop-zone {
+    border: 2px dashed var(--border);
+    border-radius: 20px;
+    padding: 3rem;
+    margin: 2rem 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--bg-card);
+    opacity: 0.8;
+}
+
+.drop-zone:hover { 
+    border-color: var(--accent); 
+    background: var(--bg-card);
+    opacity: 1;
+    transform: scale(1.01);
+}
+
+.drop-zone .icon { font-size: 3rem; display: block; margin-bottom: 1rem; }
+
+/* ==========================================================================
+   5. CHART & PIVOT LAYOUTS
+   ========================================================================== */
+.glass-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+    transition: background 0.3s ease;
+}
+
+.main-chart-box { 
+    grid-column: span 3; 
+    margin-top: 1rem; 
+    min-height: 450px;
+    position: relative;
+}
+
+.pivot-workspace-layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 2rem;
+}
+
+/* Form Elements */
+select, .minimal-select, .theme-dropdown {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg-card);
+    color: var(--text-main);
+    font-size: 0.9rem;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
+
+select:focus { border-color: var(--accent); }
+
+/* ==========================================================================
+   6. TABLES (Pro-Style)
+   ========================================================================== */
+.pro-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-card);
+}
+
+.pro-table th {
+    text-align: left;
+    padding: 14px;
+    background: var(--bg-light);
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--border);
+}
+
+.pro-table td {
+    padding: 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   7. UTILITIES & ANIMATION
+   ========================================================================== */
+.btn-primary {
+    background: var(--accent);
+    color: white;
+    padding: 14px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover { 
+    filter: brightness(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#ai-insights-list li {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Profile & Header */
+.avatar { 
+    width: 35px; height: 35px; 
+    background: var(--accent); 
+    color: white; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    font-size: 0.8rem;
+}
+
+/* ==========================================================================
+   8. RESPONSIVE MEDIA QUERIES
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .dashboard-grid { grid-template-columns: 1fr 1fr; }
+    .main-chart-box { grid-column: span 2; }
+}
+
+@media (max-width: 768px) {
+    .sidebar { width: 80px; padding: 2rem 0.5rem; }
+    .logo, .nav-links li span, .history-section { display: none; }
+}
