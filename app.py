@@ -12,7 +12,7 @@ CORS(app)
 
 # --- DATABASE CONFIGURATION ---
 DB_USER = "root"
-DB_PASS = "qasimnizam123." 
+DB_PASS = "secret" 
 DB_HOST = "localhost"
 DB_NAME = "genius_bi_db"
 
